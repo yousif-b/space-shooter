@@ -1,3 +1,4 @@
+import InputHandler from "./inputHandler.js";
 import Ship from "./ship.js";
 
 export default class Game {
@@ -8,6 +9,7 @@ export default class Game {
 
     start(){
         this.ship = new Ship(this.width, this.height);
+        new InputHandler(this.ship);
     }
 
     update(deltaTime){
