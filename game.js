@@ -1,6 +1,7 @@
 import InputHandler from "./inputHandler.js";
 import Ship from "./ship.js";
 import Star from "./star.js";
+import Projectile from "./projectile.js";
 
 export default class Game {
     constructor(gameWidth, gameHeight){

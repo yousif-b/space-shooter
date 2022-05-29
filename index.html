@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>platformer</title>
+        <title>Space Shooter</title>
         <meta charset = "UTF-8"/>
     </head>
 
@@ -12,12 +12,15 @@
         #gameScreen{
             margin-top:5em;
             background-color:black;
+        }
+        #ship{
+            display:none;
         }        
     </style>
 
     <body>
         <canvas id = "gameScreen" width = "560" height = "780"></canvas>
-
+        <img id = "ship" src = "ship.png">
         <script type = "module" src = "script.js"></script>
     </body>
 </html>

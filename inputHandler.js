@@ -8,6 +8,9 @@ export default class InputHandler {
                case 'ArrowRight':
                    ship.moveRight();
                    break;
+               case 'ArrowUp':
+                   ship.shoot();
+                   break;
            } 
         });
 

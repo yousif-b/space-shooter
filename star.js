@@ -19,6 +19,7 @@ export default class Star{
         this.position.y += this.speed/dt;
         if(this.position.y > this.gameHeight){
             this.position.y = 0;
+            this.position.x = Math.floor(Math.random()*this.gameWidth);
         }
     }
 }
