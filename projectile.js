@@ -6,10 +6,14 @@ export default class Projectile{
         this.width = 4;
         this.speed = 0;
         this.position = {
-            x:x,
+            x:x+30,
             y:y
         };
         this.shooting = false;
+    }
+
+    getPosition(){
+        return this.position;
     }
 
     followLeft(){
@@ -18,6 +22,12 @@ export default class Projectile{
 
     followRight(){
         this.speed = 135;
+    }
+
+    bulletReset(x,y){
+        this.position.y = y;
+        this.position.x = x +30;
+        this.shooting = false;
     }
 
     shoot(){
@@ -30,27 +40,23 @@ export default class Projectile{
 
     draw(ctx){
         ctx.fillStyle = 'white';
-        ctx.fillRect(this.position.x+30, this.position.y, this.width, this.height);
+        ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 
     update(dt, x, y){
         if(this.shooting){
         this.position.y += -350/dt;
             if(this.position.y<0){
-                this.position.y = y;
-                this.position.x = x;
-                this.shooting = false;
+                    this.bulletReset(x,y);
             }
         }
         else{
             this.position.x  += this.speed/dt;
-
-            if (this.position.x < 0) {
-                this.position.x = 0;
+            if (this.position.x < 30) {
+                this.position.x = 30;
             }
-    
-            if (this.position.x > this.gameWidth-64){
-                this.position.x = this.gameWidth-64;
+            if (this.position.x > this.gameWidth-34){
+                this.position.x = this.gameWidth-34;
             }
         }
     }

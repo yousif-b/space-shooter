@@ -20,12 +20,22 @@ export default class Ship {
         this.projectile.followLeft();
     }
 
+    bulletReset(){
+        this.projectile.bulletReset(this.position.x, this.position.y);
+    }
+
+    getBulletPosition(){
+        return this.projectile.getPosition();
+    }
+
     moveRight(){
         this.speed = 135;
         this.projectile.followRight();
     }
 
-    shoot(){this.projectile.shoot();}
+    shoot(){
+        this.projectile.shoot();
+    }
 
     stop(){
         this.speed = 0;
