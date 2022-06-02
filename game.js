@@ -2,12 +2,12 @@ import InputHandler from "./inputHandler.js";
 import Ship from "./ship.js";
 import Star from "./star.js";
 import Enemy from "./enemy.js";
+import MediumEnemy from "./mediumEnemy.js";
 
 export default class Game {
     constructor(gameWidth, gameHeight){
         this.width = gameWidth;
         this.height = gameHeight;
-        this.wave1 = false;
     }
 
     checkIfEnemiesAreDead(enemies){
@@ -39,8 +39,15 @@ export default class Game {
     }
 
     start(){
+        this.wave1 = true;
+        this.wave2 = false;
+        this.wave3 = false;
         this.ship = new Ship(this.width, this.height);
         this.enemies = [];
+        this.mediumEnemies = [];
+        for(let i = 0; i<3; i++){
+            this.mediumEnemies.push(new MediumEnemy(this.width, this.height, i, 1));
+        }
         for(let i = 0; i<3; i++){
             for(let j = 0; j<8;j++){
                 this.enemies.push(new Enemy(this.width, this.height, j+1, i+1));
@@ -69,7 +76,16 @@ export default class Game {
             }
         }
 
-        if(this.wave1 == true){
+        if(this.wave1 == true && this.wave2 == false){
+            for(let i = 0; i<this.mediumEnemies.length; i++){
+                this.mediumEnemies[i].update(deltaTime);
+            }
+            for(let i = 8; i<24;i++){
+                this.enemies[i].update(deltaTime);
+            }
+        }
+
+        if(this.wave2 == true && this.wave3 == false){
         }
 
         for(let i = 0 ; i<this.stars.length; i++){
@@ -79,6 +95,9 @@ export default class Game {
 
     draw(ctx){
         this.ship.draw(ctx);
+        for(let i = 0; i<this.mediumEnemies.length;i++){
+            this.mediumEnemies[i].draw(ctx);
+        }
         for(let i = 0; i<this.enemies.length; i++){
             this.enemies[i].draw(ctx);
         }

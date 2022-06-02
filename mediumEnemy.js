@@ -1,6 +1,6 @@
 import Projectile from "./projectile.js";
 
-export default class Enemy{
+export default class MediumEnemy{
     constructor(gameWidth, gameHeight, rIndex, cIndex){
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
@@ -8,10 +8,11 @@ export default class Enemy{
         this.rIndex = rIndex;
         this.cIndex = cIndex;
         this.speed = 0;
+        this.size = 128;
         this.isKilled = false;
         this.position = {
-            x: this.rIndex*(this.gameWidth/10),
-            y: this.cIndex*(this.gameHeight/10 - 125)
+            x: this.rIndex*(this.gameWidth/3)+this.gameWidth/20,
+            y: this.cIndex*(this.gameHeight/10 - 215)
         }
         this.projectile = new Projectile(this.gameWidth, this.gameHeight, this.position.x, this.position.y, true);
     }
@@ -32,7 +33,7 @@ export default class Enemy{
 
     draw(ctx){
         ctx.fillStyle = 'white';
-        ctx.drawImage(this.sprite, this.position.x, this.position.y);
+        ctx.fillRect(this.position.x, this.position.y, this.size, this.size);
         this.projectile.draw(ctx);
     }
 
@@ -42,7 +43,7 @@ export default class Enemy{
 
     update(dt){
         this.projectile.update(dt, this.position.x, this.position.y);
-        if(this.position.y < this.cIndex*(this.gameHeight/6)){
+        if(this.position.y < this.cIndex*(this.gameHeight/10)){
         this.position.y += 35/dt;
         }
         if(this.randomNum() > 99.75){
