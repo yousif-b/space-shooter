@@ -7,6 +7,20 @@ export default class Game {
     constructor(gameWidth, gameHeight){
         this.width = gameWidth;
         this.height = gameHeight;
+        this.wave1 = false;
+    }
+
+    checkIfEnemiesAreDead(enemies){
+        let count = 0;
+        for(let i = 0; i<enemies.length; i++){
+            if(enemies[i].checkIfKilled()){
+                count++;
+            }
+        }
+        if(count == enemies.length){
+            return true;
+        }
+        else{return false;}
     }
 
     checkHit(bulletP, enemyP){
@@ -41,13 +55,23 @@ export default class Game {
 
     update(deltaTime){
         this.ship.update(deltaTime);
-        for(let i = 0; i<this.enemies.length; i++){
-            this.enemies[i].update(deltaTime);
-            if(this.checkHit(this.ship.getBulletPosition(), this.enemies[i].getPosition())){
-                this.enemies[i].killed();
-                this.ship.bulletReset();
+        if(this.wave1 == false){
+            for(let i = 0; i<this.enemies.length; i++){
+                this.enemies[i].update(deltaTime);
+                if(this.checkHit(this.ship.getBulletPosition(), this.enemies[i].getPosition())){
+                    this.enemies[i].killed();
+                    this.ship.bulletReset();
+    
+                    if(this.checkIfEnemiesAreDead(this.enemies)){
+                        this.wave1 = true;
+                    }
+                }
             }
         }
+
+        if(this.wave1 == true){
+        }
+
         for(let i = 0 ; i<this.stars.length; i++){
             this.stars[i].update(deltaTime);
         }

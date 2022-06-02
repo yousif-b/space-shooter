@@ -1,14 +1,19 @@
+import Projectile from "./projectile.js";
+
 export default class Enemy{
     constructor(gameWidth, gameHeight, rIndex, cIndex){
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
-        this.x = rIndex;
-        this.y = cIndex;
+        this.sprite = document.getElementById("enemy");
+        this.rIndex = rIndex;
+        this.cIndex = cIndex;
+        this.speed = 0;
+        this.isKilled = false;
         this.position = {
-            x: this.x*(this.gameWidth/10),
-            y: this.y*(this.gameHeight/10)
+            x: this.rIndex*(this.gameWidth/10),
+            y: this.cIndex*(this.gameHeight/10 - 125)
         }
-        this.size = 32;
+        this.projectile = new Projectile(this.gameWidth, this.gameHeight, this.position.x, this.position.y, true);
     }
 
     getPosition(){
@@ -18,14 +23,30 @@ export default class Enemy{
     killed(){
         this.position.x = 1000;
         this.position.y = 1000;
+        this.isKilled = true;
+    }
+
+    checkIfKilled(){
+        return this.isKilled;
     }
 
     draw(ctx){
         ctx.fillStyle = 'white';
-        ctx.fillRect(this.position.x, this.position.y, this.size, this.size);
+        ctx.drawImage(this.sprite, this.position.x, this.position.y);
+        this.projectile.draw(ctx);
+    }
+
+    randomNum(){
+        return (Math.random()*100)
     }
 
     update(dt){
-        //this.position.y += 1/dt;
+        this.projectile.update(dt, this.position.x, this.position.y);
+        if(this.position.y < this.cIndex*(this.gameHeight/10)){
+        this.position.y += 35/dt;
+        }
+        if(this.randomNum() > 99.75){
+            this.projectile.shoot();
+        }
     }
 }

@@ -12,12 +12,11 @@ export default class Ship {
             x: gameWidth/2-16,
             y: gameHeight-128
         };
-        this.projectile = new Projectile(gameWidth, gameHeight, this.position.x, this.position.y);
+        this.projectile = new Projectile(gameWidth, gameHeight, this.position.x, this.position.y, false);
     }
 
     moveLeft(){
         this.speed = -135;
-        this.projectile.followLeft();
     }
 
     bulletReset(){
@@ -30,7 +29,6 @@ export default class Ship {
 
     moveRight(){
         this.speed = 135;
-        this.projectile.followRight();
     }
 
     shoot(){
@@ -39,7 +37,6 @@ export default class Ship {
 
     stop(){
         this.speed = 0;
-        this.projectile.stop();
     }
 
     draw(ctx){

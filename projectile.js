@@ -1,32 +1,33 @@
 export default class Projectile{
-    constructor(gameWidth, gameHeight, x, y){
+    constructor(gameWidth, gameHeight, x, y, isEnemy){
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
         this.height = 8;
         this.width = 4;
-        this.speed = 0;
         this.position = {
-            x:x+30,
+            x:this.changePositionIfEnemy(isEnemy,x),
             y:y
         };
         this.shooting = false;
+        this.isEnemy = isEnemy;
     }
 
     getPosition(){
         return this.position;
     }
 
-    followLeft(){
-        this.speed = -135;
-    }
-
-    followRight(){
-        this.speed = 135;
+    changePositionIfEnemy(enemy, x){
+        if(enemy){
+            return x+15;
+        }
+        else{
+            return x+30;
+        }
     }
 
     bulletReset(x,y){
         this.position.y = y;
-        this.position.x = x +30;
+        this.position.x = this.changePositionIfEnemy(this.isEnemy, x);
         this.shooting = false;
     }
 
@@ -34,9 +35,6 @@ export default class Projectile{
         this.shooting = true;
     }
 
-    stop(){
-        this.speed = 0;
-    }
 
     draw(ctx){
         ctx.fillStyle = 'white';
@@ -45,13 +43,19 @@ export default class Projectile{
 
     update(dt, x, y){
         if(this.shooting){
-        this.position.y += -350/dt;
-            if(this.position.y<0){
-                    this.bulletReset(x,y);
+            if(this.isEnemy){
+                this.position.y += 50/dt;
+            }
+            else{
+                this.position.y += -350/dt;
+            }
+            if(this.position.y<0 || this.position.y > this.gameHeight){
+                this.bulletReset(x,y);
             }
         }
         else{
-            this.position.x  += this.speed/dt;
+            this.position.x = this.changePositionIfEnemy(this.isEnemy, x);
+            this.position.y = y+15;
             if (this.position.x < 30) {
                 this.position.x = 30;
             }
