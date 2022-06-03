@@ -8,17 +8,17 @@ export default class MediumEnemy{
         this.rIndex = rIndex;
         this.cIndex = cIndex;
         this.speed = 0;
-        this.size = 128;
+        this.size = 98;
         this.isKilled = false;
         this.position = {
-            x: this.rIndex*(this.gameWidth/3)+this.gameWidth/20,
+            x: this.rIndex*(this.gameWidth/3)+this.gameWidth/15,
             y: this.cIndex*(this.gameHeight/10 - 215)
         }
         this.projectile = new Projectile(this.gameWidth, this.gameHeight, this.position.x, this.position.y, true);
     }
-
-    getPosition(){
-        return this.position;
+    
+    getSize(){
+        return this.size;
     }
 
     killed(){

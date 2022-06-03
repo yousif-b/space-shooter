@@ -7,6 +7,7 @@ export default class Enemy{
         this.sprite = document.getElementById("enemy");
         this.rIndex = rIndex;
         this.cIndex = cIndex;
+        this.size = 32;
         this.speed = 0;
         this.isKilled = false;
         this.position = {
@@ -16,8 +17,8 @@ export default class Enemy{
         this.projectile = new Projectile(this.gameWidth, this.gameHeight, this.position.x, this.position.y, true);
     }
 
-    getPosition(){
-        return this.position;
+    getSize(){
+        return this.size;
     }
 
     killed(){

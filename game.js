@@ -10,32 +10,51 @@ export default class Game {
         this.height = gameHeight;
     }
 
-    checkIfEnemiesAreDead(enemies){
+    checkIfEnemiesAreDead(wave){
         let count = 0;
-        for(let i = 0; i<enemies.length; i++){
-            if(enemies[i].checkIfKilled()){
-                count++;
+        let counting = 0;
+        for(let i = 0; i<wave.length;i++){
+            count +=wave[i].length;
+            for(let j = 0; j<wave[i].length;j++){
+                if(wave[i][j].checkIfKilled()){
+                    counting++;
+                }
             }
         }
-        if(count == enemies.length){
+        if(count == counting){
             return true;
         }
         else{return false;}
     }
 
-    checkHit(bulletP, enemyP){
-        let bX = bulletP.x;
-        let bY = bulletP.y;
-        let eX = enemyP.x;
-        let eY = enemyP.y;
-        if(bX > eX && bX < eX+32){
-            if(bY > eY && bY < eY+32){
+    checkHit(ship, enemy){
+        let enemyWidth = enemy.size;
+        let bulletP = ship.getBulletPosition();
+        let enemyP = enemy.position;
+        if(bulletP.x > enemyP.x && bulletP.x < enemyP.x + enemyWidth){
+            if(bulletP.y > enemyP.y && bulletP.y < enemyP.y + enemyWidth){
                 return true;
             }
+            else{
+                return false;
+            }
         }
-        else{
-            return false;
+    }
+
+    addRowOfEnemies(j){
+        let arr = [];
+        for(let i = 0; i<8; i++){
+            arr.push(new Enemy(this.width, this.height, i+1, j))
         }
+        return arr;
+    }
+
+    addRowOfMedEnemies(j){
+        let arr = [];
+        for(let i = 0; i<3; i++){
+            arr.push(new MediumEnemy(this.width, this.height, i, j))
+        }
+        return arr;
     }
 
     start(){
@@ -43,16 +62,8 @@ export default class Game {
         this.wave2 = false;
         this.wave3 = false;
         this.ship = new Ship(this.width, this.height);
-        this.enemies = [];
-        this.mediumEnemies = [];
-        for(let i = 0; i<3; i++){
-            this.mediumEnemies.push(new MediumEnemy(this.width, this.height, i, 1));
-        }
-        for(let i = 0; i<3; i++){
-            for(let j = 0; j<8;j++){
-                this.enemies.push(new Enemy(this.width, this.height, j+1, i+1));
-            }
-        }
+        this.wave1enemies = [this.addRowOfEnemies(1), this.addRowOfEnemies(2), this.addRowOfEnemies(3)];
+        this.wave2enemies = [this.addRowOfEnemies(3), this.addRowOfEnemies(2), this.addRowOfMedEnemies(1)];
         this.stars = new Array(50);
         for(let i = 0 ; i<this.stars.length; i++){
             this.stars[i] = new Star(this.width, this.height);
@@ -63,26 +74,26 @@ export default class Game {
     update(deltaTime){
         this.ship.update(deltaTime);
         if(this.wave1 == false){
-            for(let i = 0; i<this.enemies.length; i++){
-                this.enemies[i].update(deltaTime);
-                if(this.checkHit(this.ship.getBulletPosition(), this.enemies[i].getPosition())){
-                    this.enemies[i].killed();
+            this.wave1enemies.forEach((e) => {e.forEach((m) => {
+                m.update(deltaTime);
+                if(this.checkHit(this.ship, m)){
+                    m.killed();
                     this.ship.bulletReset();
-    
-                    if(this.checkIfEnemiesAreDead(this.enemies)){
+                    if(this.checkIfEnemiesAreDead(this.wave1enemies)){
                         this.wave1 = true;
                     }
                 }
-            }
+            })});
         }
 
         if(this.wave1 == true && this.wave2 == false){
-            for(let i = 0; i<this.mediumEnemies.length; i++){
-                this.mediumEnemies[i].update(deltaTime);
-            }
-            for(let i = 8; i<24;i++){
-                this.enemies[i].update(deltaTime);
-            }
+            this.wave2enemies.forEach((e) => {e.forEach((m) => {
+                m.update(deltaTime);
+                if(this.checkHit(this.ship, m)){
+                    m.killed();
+                    this.ship.bulletReset();
+                }
+            })});
         }
 
         if(this.wave2 == true && this.wave3 == false){
@@ -95,14 +106,8 @@ export default class Game {
 
     draw(ctx){
         this.ship.draw(ctx);
-        for(let i = 0; i<this.mediumEnemies.length;i++){
-            this.mediumEnemies[i].draw(ctx);
-        }
-        for(let i = 0; i<this.enemies.length; i++){
-            this.enemies[i].draw(ctx);
-        }
-        for(let i = 0 ; i<this.stars.length; i++){
-            this.stars[i].draw(ctx);
-        }
+        this.stars.forEach(s => s.draw(ctx));
+        this.wave1enemies.forEach((e) => {e.forEach(m => m.draw(ctx))});
+        this.wave2enemies.forEach((e) => {e.forEach(m => m.draw(ctx))});
     }
 }
