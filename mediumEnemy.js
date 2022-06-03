@@ -4,7 +4,7 @@ export default class MediumEnemy{
     constructor(gameWidth, gameHeight, rIndex, cIndex){
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
-        this.sprite = document.getElementById("enemy");
+        this.sprite = document.getElementById("medEnemy");
         this.rIndex = rIndex;
         this.cIndex = cIndex;
         this.speed = 0;
@@ -33,7 +33,7 @@ export default class MediumEnemy{
 
     draw(ctx){
         ctx.fillStyle = 'white';
-        ctx.fillRect(this.position.x, this.position.y, this.size, this.size);
+        ctx.drawImage(this.sprite, this.position.x, this.position.y);
         this.projectile.draw(ctx);
     }
 

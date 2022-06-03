@@ -58,7 +58,7 @@ export default class Game {
     }
 
     start(){
-        this.wave1 = true;
+        this.wave1 = false;
         this.wave2 = false;
         this.wave3 = false;
         this.ship = new Ship(this.width, this.height);
