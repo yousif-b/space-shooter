@@ -7,6 +7,7 @@ export default class Ship {
         this.width = 64;
         this.height = 64;
         this.speed = 0;
+        this.isKiled = false;
         this.sprite = document.getElementById("ship");
         this.position = {
             x: gameWidth/2-16,
@@ -25,6 +26,12 @@ export default class Ship {
 
     getBulletPosition(){
         return this.projectile.getPosition();
+    }
+
+    killed(){
+        this.position.x = 1000;
+        this.position.y = 1000;
+        this.isKilled = true;
     }
 
     moveRight(){

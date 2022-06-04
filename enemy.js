@@ -2,6 +2,7 @@ import Projectile from "./projectile.js";
 
 export default class Enemy{
     constructor(gameWidth, gameHeight, rIndex, cIndex){
+        this.id = "enemy";
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
         this.sprite = document.getElementById("enemy");
@@ -19,6 +20,14 @@ export default class Enemy{
 
     getSize(){
         return this.size;
+    }
+
+    bulletReset(){
+        this.projectile.bulletReset(this.position.x, this.position.y);
+    }
+
+    getBulletPosition(){
+        return this.projectile.getPosition();
     }
 
     killed(){
@@ -46,7 +55,7 @@ export default class Enemy{
         if(this.position.y < this.cIndex*(this.gameHeight/6)){
         this.position.y += 35/dt;
         }
-        if(this.randomNum() > 99.75){
+        if(this.randomNum() > 99.50){
             this.projectile.shoot();
         }
     }

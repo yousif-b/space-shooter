@@ -3,6 +3,7 @@ import Ship from "./ship.js";
 import Star from "./star.js";
 import Enemy from "./enemy.js";
 import MediumEnemy from "./mediumEnemy.js";
+import LargeEnemy from "./largeEnemy.js";
 
 export default class Game {
     constructor(gameWidth, gameHeight){
@@ -41,6 +42,20 @@ export default class Game {
         }
     }
 
+    checkDeath(ship, enemy){
+        let shipWidth = ship.width;
+        let bulletP = enemy.getBulletPosition();
+        let shipP = ship.position;
+        if(bulletP.x > shipP.x && bulletP.x < shipP.x + shipWidth){
+            if(bulletP.y > shipP.y && bulletP.y < shipP.y + shipWidth){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+    }
+
     addRowOfEnemies(j){
         let arr = [];
         for(let i = 0; i<8; i++){
@@ -58,12 +73,13 @@ export default class Game {
     }
 
     start(){
-        this.wave1 = false;
-        this.wave2 = false;
+        this.wave1 = true;
+        this.wave2 = true;
         this.wave3 = false;
         this.ship = new Ship(this.width, this.height);
         this.wave1enemies = [this.addRowOfEnemies(1), this.addRowOfEnemies(2), this.addRowOfEnemies(3)];
         this.wave2enemies = [this.addRowOfEnemies(3), this.addRowOfEnemies(2), this.addRowOfMedEnemies(1)];
+        this.largeEnemy = new LargeEnemy(this.width, this.height);
         this.stars = new Array(50);
         for(let i = 0 ; i<this.stars.length; i++){
             this.stars[i] = new Star(this.width, this.height);
@@ -73,6 +89,7 @@ export default class Game {
 
     update(deltaTime){
         this.ship.update(deltaTime);
+        this.largeEnemy.update(deltaTime);
         if(this.wave1 == false){
             this.wave1enemies.forEach((e) => {e.forEach((m) => {
                 m.update(deltaTime);
@@ -83,6 +100,10 @@ export default class Game {
                         this.wave1 = true;
                     }
                 }
+                if(this.checkDeath(this.ship, m)){
+                    this.ship.killed();
+                    m.bulletReset();
+                }
             })});
         }
 
@@ -90,8 +111,17 @@ export default class Game {
             this.wave2enemies.forEach((e) => {e.forEach((m) => {
                 m.update(deltaTime);
                 if(this.checkHit(this.ship, m)){
-                    m.killed();
+                    if(m.id == "enemy"){
+                        m.killed();
+                    }
+                    if(m.id == "medEnemy"){
+                        m.hpLoss();
+                    }
                     this.ship.bulletReset();
+                }
+                if(this.checkDeath(this.ship, m)){
+                    this.ship.killed();
+                    m.bulletReset();
                 }
             })});
         }
@@ -106,6 +136,7 @@ export default class Game {
 
     draw(ctx){
         this.ship.draw(ctx);
+        this.largeEnemy.draw(ctx);
         this.stars.forEach(s => s.draw(ctx));
         this.wave1enemies.forEach((e) => {e.forEach(m => m.draw(ctx))});
         this.wave2enemies.forEach((e) => {e.forEach(m => m.draw(ctx))});
