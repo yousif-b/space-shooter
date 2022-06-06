@@ -2,13 +2,13 @@ import Projectile from "./projectile.js";
 
 export default class LargeEnemy{
     constructor(gameWidth, gameHeight){
-        this.id = "medEnemy";
+        this.id = "largeEnemy";
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
         this.sprite = document.getElementById("medEnemy");
         this.speed = 0;
         this.size = gameWidth;
-        this.hp = 5;
+        this.hp = 20;
         this.isKilled = false;
         this.position = {
             x: 0,

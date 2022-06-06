@@ -28,6 +28,10 @@ export default class MediumEnemy{
     getBulletPosition(){
         return this.projectile.getPosition();
     }
+    
+    bulletReset(){
+        this.projectile.bulletReset(this.position.x, this.position.y);
+    }
 
     hpLoss(){
         if(this.hp > 0){

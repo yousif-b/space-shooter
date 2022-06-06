@@ -13,7 +13,7 @@ export default class Enemy{
         this.isKilled = false;
         this.position = {
             x: this.rIndex*(this.gameWidth/10),
-            y: this.cIndex*(this.gameHeight/10 - 125)
+            y: this.cIndex*(this.gameHeight/10-125)
         }
         this.projectile = new Projectile(this.gameWidth, this.gameHeight, this.position.x, this.position.y, true);
     }
@@ -52,7 +52,7 @@ export default class Enemy{
 
     update(dt){
         this.projectile.update(dt, this.position.x, this.position.y);
-        if(this.position.y < this.cIndex*(this.gameHeight/6)){
+        if(this.position.y < this.cIndex*(this.gameHeight/6)+25){
         this.position.y += 35/dt;
         }
         if(this.randomNum() > 99.50){
