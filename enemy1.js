@@ -1,6 +1,6 @@
 import Projectile from "./projectile.js";
 
-export default class Enemy{
+export default class Enemy1{
     constructor(gameWidth, gameHeight, rIndex, cIndex){
         this.id = "enemy";
         this.gameWidth = gameWidth;
@@ -9,6 +9,7 @@ export default class Enemy{
         this.rIndex = rIndex;
         this.cIndex = cIndex;
         this.size = 32;
+        this.hp = 1;
         this.speed = 0;
         this.isKilled = false;
         this.position = {
@@ -30,10 +31,20 @@ export default class Enemy{
         return this.projectile.getPosition();
     }
 
+    hpLoss(){
+        if(this.hp > 1){
+            this.hp-=1;
+        }
+        else{
+            this.killed();
+        }
+    }
+
     killed(){
         this.position.x = 1000;
         this.position.y = 1000;
         this.isKilled = true;
+        this.bulletReset();
     }
 
     checkIfKilled(){

@@ -5,13 +5,14 @@ export default class Ship {
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
         this.width = 64;
+        this.finished = false;
         this.height = 64;
         this.speed = 0;
         this.isKiled = false;
         this.sprite = document.getElementById("ship");
         this.position = {
             x: gameWidth/2-16,
-            y: gameHeight-128
+            y: gameHeight+128
         };
         this.projectile = new Projectile(gameWidth, gameHeight, this.position.x, this.position.y, false);
     }
@@ -42,6 +43,11 @@ export default class Ship {
         this.projectile.shoot();
     }
 
+    flyAway(){
+        this.position.y -= 5;
+        this.finished = true;
+    }
+
     stop(){
         this.speed = 0;
     }
@@ -54,7 +60,7 @@ export default class Ship {
 
     update(dt){
         this.position.x += this.speed/dt;
-        
+        if(this.position.y > this.gameHeight - 128) {this.position.y -=2.5;}
         if (this.position.x < 0) {
             this.position.x = 0;
         }
