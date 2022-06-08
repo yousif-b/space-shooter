@@ -44,7 +44,9 @@ export default class Enemy1{
         this.position.x = 1000;
         this.position.y = 1000;
         this.isKilled = true;
-        this.bulletReset();
+        if(!this.projectile.shooting){
+            this.bulletReset();
+        }
     }
 
     checkIfKilled(){

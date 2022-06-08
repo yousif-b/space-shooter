@@ -8,7 +8,7 @@ export default class Ship {
         this.finished = false;
         this.height = 64;
         this.speed = 0;
-        this.isKiled = false;
+        this.isKilled = false;
         this.sprite = document.getElementById("ship");
         this.position = {
             x: gameWidth/2-16,
@@ -60,7 +60,11 @@ export default class Ship {
 
     update(dt){
         this.position.x += this.speed/dt;
-        if(this.position.y > this.gameHeight - 128) {this.position.y -=2.5;}
+        if(this.position.y > this.gameHeight - 128) {
+            if(!this.isKilled){
+                this.position.y -=2.5;
+            }
+        }
         if (this.position.x < 0) {
             this.position.x = 0;
         }

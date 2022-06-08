@@ -7,22 +7,62 @@
     <style>
         body{
             background-color:rgb(16,16,16);
-            text-align:center;
         }
+
         #gameScreen{
             background-color:black;
         }
+
+        #wrapper{
+            display:flex;
+            border-style:solid;
+            border-color:black;
+            width: fit-content;
+            margin:0 auto;
+        }
+
+        #menu {
+            background-color:rgb(2,2,2);
+        }
+
+        #menuBtns {
+            margin-top:580px;
+            display:flex;
+            flex-direction: column;
+        }
+
+        #menuBtns button{
+            background-color:rgb(16,16,16);
+            width:200px;
+            font-size:x-large;
+            color:white;
+            height:100px;
+            border-style:solid;
+            border-color:black;
+        }
+
+        #menuBtns button:hover{
+            background-color:rgb(4,4,4);
+        }
+
         img{
             display:none;
         }     
     </style>
 
     <body>
+        <div id = "wrapper">
         <canvas id = "gameScreen" width = "560" height = "780"></canvas>
-        <button id = "restartBtn">Restart</button>
-        <button id = "playBtn">Play</button>
+        <div id = "menu">
+            <div id = "menuBtns">
+                <button id = "playBtn">Play</button>
+                <button id = "restartBtn">Restart</button>
+            </div>
+        </div>
+        </div>
         <img id = "ship" src = "ship.png">
         <img id = "enemy" src = "enemy.png">
+        <img id = "enemy2" src = "enemy2.png">
         <img id = "medEnemy" src = "medEnemy.png">
         <script type = "module" src = "script.js"></script>
     </body>

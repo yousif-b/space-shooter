@@ -4,11 +4,6 @@ let canvas = document.getElementById("gameScreen");
 
 let ctx = canvas.getContext("2d");
 
-let restartBtn = document.getElementById("restartBtn");
-restartBtn.addEventListener("click", () => {
-    location.reload();
-});
-
 let GAME_WIDTH = 560;
 let GAME_HEIGHT = 780;
 let game = new Game(GAME_WIDTH, GAME_HEIGHT);

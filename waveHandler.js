@@ -17,7 +17,6 @@ export default class WaveHandler {
         this.wave4enemies = [this.addRowOfEnemy1(3), this.addRowOfEnemy1(2.5), this.addRowOfEnemy2(1), this.addRowOfEnemy2(2)];
         this.wave5enemies = [this.addRowOfEnemy1(3), this.addRowOfEnemy1(2.5), this.addRowOfEnemy2(2) , this.addRowOfEnemy3(1)];
         this.waves = [this.wave1enemies, this.wave2enemies, this.wave3enemies, this.wave4enemies, this.wave5enemies];
-        this.waveProgress = this.util.getBoolArr(5);
     }
 
     addPoint(){

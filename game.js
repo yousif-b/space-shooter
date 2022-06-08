@@ -21,8 +21,8 @@ export default class Game {
         });
         this.restartBtn = document.getElementById("restartBtn");
         this.restartBtn.addEventListener("click", () => {
-        location.reload();
-    });
+            location.reload();
+        });
         this.ship = new Ship(this.width, this.height);
         this.waveHandler = new WaveHandler(this.width, this.height);
         this.stars = new Array(50);
