@@ -44,10 +44,10 @@ export default class Projectile{
     update(dt, x, y){
         if(this.shooting){
             if(this.isEnemy){
-                this.position.y += 50/dt;
+                this.position.y += 25/dt;
             }
             else{
-                this.position.y += -350/dt;
+                this.position.y += -150/dt;
             }
             if(this.position.y<0 || this.position.y > this.gameHeight){
                 this.bulletReset(x,y);

@@ -6,7 +6,6 @@ import Enemy3 from "./enemy3.js";
 export default class WaveHandler {
     constructor(gameWidth, gameHeight){
         this.score = 0;
-        this.highScore = 0;
         this.width = gameWidth;
         this.height = gameHeight;
         this.util = new Util();
@@ -53,7 +52,7 @@ export default class WaveHandler {
         })})});
         ctx.font = "24px Arial";
         ctx.fillText(`Score: ${this.score}`, 10, this.height - 45);
-        ctx.fillText(`High Score: ${this.highScore}`, 10, this.height - 20);
+        ctx.fillText(`High Score: ${sessionStorage.getItem("highScore")}`, 10, this.height - 20);
     }
 
     update(dt, ship){
@@ -70,7 +69,7 @@ export default class WaveHandler {
                 }
                 if(this.util.checkDeath(ship, enemy)){
                     ship.killed();
-                    if(this.highScore < this.score){this.highScore = this.score;}
+                    if(sessionStorage.getItem("highScore") < this.score){sessionStorage.setItem("highScore", this.score);}
                     enemy.bulletReset();
                 }
             })})

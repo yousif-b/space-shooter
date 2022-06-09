@@ -18,7 +18,7 @@ export default class Ship {
     }
 
     moveLeft(){
-        this.speed = -135;
+        this.speed = -100;
     }
 
     bulletReset(){
@@ -36,7 +36,7 @@ export default class Ship {
     }
 
     moveRight(){
-        this.speed = 135;
+        this.speed = 75;
     }
 
     shoot(){

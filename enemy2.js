@@ -70,10 +70,10 @@ export default class Enemy2{
         if(this.position.y < this.cIndex*(this.gameHeight/7)){
         this.position.y += 35/dt;
         }
-        if(this.randomNum() > 99.3){
+        if(this.randomNum() > 99.6){
             this.projectile.shoot();
         }
-        if(this.randomNum() > 99.3){
+        if(this.randomNum() > 99.6){
             this.projectile1.shoot();
         }
     }

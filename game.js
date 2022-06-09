@@ -23,6 +23,12 @@ export default class Game {
         this.restartBtn.addEventListener("click", () => {
             location.reload();
         });
+        if(sessionStorage.getItem("highScore") == null){
+            sessionStorage.setItem("highScore", 0)
+        }
+        else{
+            this.started = true;
+        }
         this.ship = new Ship(this.width, this.height);
         this.waveHandler = new WaveHandler(this.width, this.height);
         this.stars = new Array(50);

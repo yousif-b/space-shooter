@@ -68,7 +68,7 @@ export default class Enemy1{
         if(this.position.y < this.cIndex*(this.gameHeight/6)+25){
         this.position.y += 35/dt;
         }
-        if(this.randomNum() > 99.50){
+        if(this.randomNum() > 99.80){
             this.projectile.shoot();
         }
     }
