@@ -65,6 +65,10 @@ export default class Game {
                     }
                 });
             }
+            if(this.ship.isKilled){
+                ctx.font = "24px Arial";
+                ctx.fillText('Game Over', this.width/2-75, this.height/9);
+            }
         }
     }
 }
